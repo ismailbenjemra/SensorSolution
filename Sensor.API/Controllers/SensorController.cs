@@ -23,7 +23,6 @@ namespace Sensor.API.Controllers
         {
             _logger = logger;
             _sensorService = sensorService;
-
         }
 
         /// <summary>
@@ -39,8 +38,8 @@ namespace Sensor.API.Controllers
         {
             var temperatureHistory = await _sensorService.AddTemperatureHistoryAsync(temperatureValue, cancellationToken);
 
-            if(temperatureHistory.Id == 0)
-                return StatusCode(500,"Internal server error, Please check the server logs or contact your adminstrator !");
+            if (temperatureHistory.Id == 0)
+                return StatusCode(500, "Internal server error, Please check the server logs or contact your adminstrator !");
 
             return Ok(temperatureHistory);
         }
@@ -69,9 +68,9 @@ namespace Sensor.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<String>> GetAsync(CancellationToken cancellationToken = default)
         {
-            
+
             var sensorState = await _sensorService.GetSensorStateAsync(cancellationToken);
-            if(string.IsNullOrEmpty(sensorState))
+            if (string.IsNullOrEmpty(sensorState))
             {
                 return NotFound();
             }
